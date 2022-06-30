@@ -1,0 +1,159 @@
+@start s
+
+@members {
+    private int getFactorial(int a) {
+        int result = 1;
+        for (int i = 2; i <= a; i++) {
+            result *= i;
+        }
+        return result;
+    }
+}
+
+s   returns[int result]:
+    a1 = s1
+    {
+        $s.result = a1.result;
+    }
+;
+
+s1  returns[int result]:
+    a1 = s2
+    a2 = s1p[a1.result]
+    {
+        $s1.result =  a2.result;
+    }
+;
+
+s1p [int a] returns[int result]:
+    '-'
+    a1 = s1
+    {
+        $s1p.result = a - a1.result;
+    }
+    |
+    {
+        $s1p.result = a;
+    }
+;
+
+s2  returns[int result]:
+    a1 = s3
+    a2 = s2p[a1.result]
+    {
+        $s2.result = a2.result;
+    }
+;
+
+s2p [int a] returns[int result]:
+    '+'
+    a1 = s2
+    {
+        $s2p.result = a + a1.result;
+    }
+    |
+    {
+        $s2p.result = a;
+    }
+;
+
+s3  returns[int result]:
+    a1 = s4
+    a2 = s3p[a1.result]
+    {
+        $s3.result = a2.result;
+    }
+;
+
+s3p [int a] returns[int result]:
+    '/'
+    a1 = s3
+    {
+        $s3p.result = a / a1.result;
+    }
+    |
+    {
+        $s3p.result = a;
+    }
+;
+
+s4  returns[int result]:
+    a1 = sm
+    a2 = s4p[a1.result]
+    {
+        $s4.result = a2.result;
+    }
+;
+
+s4p [int a] returns[int result]:
+    '*'
+    a1 = s4
+    {
+        $s4p.result = a * a1.result;
+    }
+    |
+    {
+        $s4p.result = a;
+    }
+;
+
+sm returns[int result]:
+    '-'
+    a1 = s5
+    {
+        $sm.result = - a1.result;
+    }
+    |
+    a2 = s5
+    {
+        $sm.result = a2.result;
+    }
+;
+
+s5  returns[int result]:
+    a1 = s6
+    a2 = s5p[a1.result]
+    {
+        $s5.result = a2.result;
+    }
+;
+
+s5p [int a] returns[int result]:
+   '!'
+    a1 = s5p[a]
+    {
+        $s5p.result = getFactorial(a1.result);
+    }
+    |
+    {
+        $s5p.result = a;
+    }
+;
+
+s6  returns[int result]:
+    '('
+    a1 = s1
+    ')'
+    {
+        $s6.result = a1.result;
+    }
+    |
+    a2 = number
+    {
+        $s6.result = a2.result;
+    }
+;
+
+number returns[int result]:
+    a1 = Numbers
+    {
+        $number.result = Integer.parseInt(a1.getText());
+    }
+;
+
+
+Numbers : Number CurNumbers ;
+CurNumbers : Numbers | ;
+Number : [0-9];
+
+WS~ :   [ \t\n\r]   ;

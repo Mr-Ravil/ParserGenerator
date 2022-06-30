@@ -1,0 +1,17 @@
+FROM	TO
+S	S_5
+S_5	S_4 S_5'
+S_5'	xor S_5
+S_5'	e
+S_4	S_3 S_4'
+S_4'	or S_4
+S_4'	e
+S_3	S_2 S_3'
+S_3'	and S_3
+S_3'	e
+S_2	not S_2
+S_2	(S_5)
+S_2	T S_1
+S_1	in T
+S_1	not in T
+T	t

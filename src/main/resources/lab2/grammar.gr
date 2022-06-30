@@ -1,0 +1,19 @@
+@start s
+s   :	s5          ;
+s5  :   s4 s5p      ;
+s5p :   'xor' s5    ;
+s5p	:               ;
+s4	:   s3 s4p      ;
+s4p	:   'or' s4     ;
+s4p	:               ;
+s3  :   s2 s3p      ;
+s3p	:   'and' s3    ;
+s3p	:               ;
+s2  :   'not' s2    ;
+s2  :   '('s5')'    ;
+s2	:   T s1        ;
+s1	:   'not' s1p   ;
+s1  :   s1p         ;
+s1p	:   'in' T      ;
+T	:   [a-z]       ;
+WS~ :   [ \t\n\r]   ;

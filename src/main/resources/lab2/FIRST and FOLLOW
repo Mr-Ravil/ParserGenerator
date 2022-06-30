@@ -1,0 +1,11 @@
+Нетерминал	FIRST	FOLLOW
+S	not, (, t	$
+S_5	not, (, t	$, )
+S_5'	xor, e	$, )
+S_4	not, (, t	$, ), xor
+S_4'	or, e	$, ), xor
+S_3	not, (, t	$, ), xor, or
+S_3'	and, e	$, ), xor, or
+S_2	not, (, t	$, ), xor, or, and
+S_1	in, not	$, ), xor, or, and
+T	t	$, ), xor, or, and, in, not

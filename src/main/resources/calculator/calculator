@@ -1,0 +1,41 @@
+s : s1 ;
+s1 : s2 - s1;
+s1 : s2 ;
+s2 : s3 + s2;
+s2 : s3 ;
+s3 : s4 / s3;
+s3 : s4 ;
+s4 : number * s4;
+s4 : number;
+number : Numbers | -Numbers ;
+Numbers : Number Numbers | Number ;
+Number : [0-1];
+
+/////////////
+
+s   :   s1      ;
+
+s1  :   s2 s1p  ;
+s1p :   '-' s1  ;
+s1p :           ;
+
+s2  :   s3 s2p  ;
+s2p :   '+' s2  ;
+s2p :           ;
+
+s3  :   s4 s3p  ;
+s3p :   '/' s3  ;
+s3p :           ;
+
+s4  :   s5 s4p  ;
+s4p :   '*' s4  ;
+s4p :           ;
+
+s5  :   number s5p ;
+s5p :   '!'     ;
+s5p :           ;
+
+number : Numbers | -Numbers ;
+Numbers : Number Numbers | Number ;
+Number : [0-1];
+
